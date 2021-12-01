@@ -15,18 +15,57 @@ namespace HomeWork15
     class Program
     {
         static void Main(string[] args)
-        {
-            ISeries aprog = new ArithProgression(4);
-            aprog.SetStart(2);
-            Console.WriteLine(aprog.GetNext());
+        {            
+            int arithStep = ReadValue("Введите пожалуйста шаг арифметической прогрессии:");
+            int aStartValue = ReadValue("введите стартовое значение ряда:");
+            int arithCount = ReadValue("Количество членов, выводимых на консоль:");
+            int[] arithArray = new int[arithCount];
+            ArithProgression aprog = new ArithProgression(arithStep);
+            aprog.SetStart(aStartValue);
+            for (int i = 1; i < arithCount; i++)
+            {
+                arithArray[i] = (aprog.GetNext());
+            }
+            Console.WriteLine("Следующие члены прогрессии:");
+            for (int i = 1; i < arithCount; i++)
+            {
+                Console.WriteLine(arithArray[i]);
+            }
             aprog.Reset();
-            Console.WriteLine(aprog.GetNext());
-            ISeries gprog = new GeomProgression(4);
-            gprog.SetStart(4);
-            Console.WriteLine(gprog.GetNext());
+            Console.WriteLine();
+            int geomStep = ReadValue("Введите пожалуйста шаг геометрической прогрессии:");
+            int gStartValue = ReadValue("введите стартовое значение ряда:");
+            int geomCount = ReadValue("Количество членов, выводимых на консоль:");
+            int[] geomArray = new int[geomCount];
+            GeomProgression gprog = new GeomProgression(geomStep);
+            gprog.SetStart(gStartValue);
+            for (int i = 1; i < geomCount; i++)
+            {
+                geomArray[i] = (gprog.GetNext());
+            }
+            Console.WriteLine("Следующие члены прогрессии:");
+            for (int i = 1; i < geomCount; i++)
+            {
+                Console.WriteLine(geomArray[i]);
+            }
             gprog.Reset();
-            Console.WriteLine(gprog.GetNext());
             Console.ReadKey();
         }
-    }    
+        static int ReadValue(string text)   //метод проверяющий корректность ввода данных
+        {
+            int value;
+            while (true)
+            {
+                Console.WriteLine(text);
+                if (Int32.TryParse(Console.ReadLine(), out value))
+                {
+                    return value;
+                }
+                else
+                {
+                    Console.WriteLine("Ввод некорректен");
+                }
+            }
+        }
+    }
 }
